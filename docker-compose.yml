@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: ./backend
+    container_name: smoke-no-labels-backend
+    ports:
+      - "8000:8000"
+    environment:
+      GROUNDING_MODEL: ${GROUNDING_MODEL:-IDEA-Research/grounding-dino-tiny}
+      GROUNDING_PROMPT: ${GROUNDING_PROMPT:-smoke. smoke plume. white smoke. gray smoke. industrial smoke.}
+      GROUNDING_BOX_THRESHOLD: ${GROUNDING_BOX_THRESHOLD:-0.25}
+      GROUNDING_TEXT_THRESHOLD: ${GROUNDING_TEXT_THRESHOLD:-0.20}
+      SIGLIP_MODEL: ${SIGLIP_MODEL:-google/siglip2-base-patch16-224}
+      VLM_MODEL: ${VLM_MODEL:-HuggingFaceTB/SmolVLM-500M-Instruct}
+      VLM_MAX_NEW_TOKENS: ${VLM_MAX_NEW_TOKENS:-120}
+      HF_HOME: /root/.cache/huggingface
+    volumes:
+      - hf_cache:/root/.cache/huggingface
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: smoke-no-labels-frontend
+    ports:
+      - "8001:8001"
+    environment:
+      BACKEND_URL: http://backend:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  hf_cache:
