@@ -1,0 +1,30 @@
+services:
+  siglip-trainer:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    container_name: siglip2-trainer
+    environment:
+      HF_HOME: /root/.cache/huggingface
+    volumes:
+      - ../SigLIP2_dataset:/app/data
+      - ../siglip2_finetuned:/app/output
+      - hf_cache:/root/.cache/huggingface
+    command: ["python", "/app/train_siglip2.py"]
+
+  siglip-evaluator:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    container_name: siglip2-evaluator
+    environment:
+      HF_HOME: /root/.cache/huggingface
+    volumes:
+      - ../SigLIP2_dataset:/app/data
+      - ../siglip2_finetuned:/app/output
+      - hf_cache:/root/.cache/huggingface
+    command: ["python", "/app/evaluate_siglip2.py"]
+    profiles: ["eval"]
+
+volumes:
+  hf_cache:

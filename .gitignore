@@ -1,0 +1,26 @@
+# Datasets
+SigLIP2_dataset/
+SmolVLM_500_Test/
+
+# Trained model outputs
+siglip2_finetuned/
+
+# Installers
+*.exe
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+
+# Hugging Face cache
+.cache/
+hf_cache/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
