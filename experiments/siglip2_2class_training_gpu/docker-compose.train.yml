@@ -1,0 +1,32 @@
+services:
+  siglip2-2class-trainer:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    container_name: siglip2-2class-trainer
+    gpus: all
+    environment:
+      HF_HOME: /root/.cache/huggingface
+    volumes:
+      - ../CLIP_2class_dataset:/app/data
+      - ../siglip2_2class_finetuned:/app/output
+      - hf_cache:/root/.cache/huggingface
+    command: ["python", "/app/train_siglip2_2class.py"]
+
+  siglip2-2class-evaluator:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    container_name: siglip2-2class-evaluator
+    gpus: all
+    environment:
+      HF_HOME: /root/.cache/huggingface
+    volumes:
+      - ../CLIP_2class_dataset:/app/data
+      - ../siglip2_2class_finetuned:/app/output
+      - hf_cache:/root/.cache/huggingface
+    command: ["python", "/app/evaluate_siglip2_2class.py"]
+    profiles: ["eval"]
+
+volumes:
+  hf_cache:

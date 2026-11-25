@@ -1,0 +1,1 @@
+experiments/siglip2_2class_finetuned/best_model/model.safetensors filter=lfs diff=lfs merge=lfs -text
