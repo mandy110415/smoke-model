@@ -1,0 +1,22 @@
+{
+  "test_accuracy": 0.9869565217391304,
+  "cloud_to_smoke_rate": 0.01818181818181818,
+  "smoke_to_cloud_rate": 0.008333333333333333,
+  "confusion_matrix": {
+    "labels": [
+      "cloud",
+      "smoke"
+    ],
+    "matrix": [
+      [
+        108,
+        2
+      ],
+      [
+        1,
+        119
+      ]
+    ]
+  },
+  "test_count": 230
+}
